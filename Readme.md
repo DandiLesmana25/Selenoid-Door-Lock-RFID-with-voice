@@ -1,4 +1,4 @@
-# 🔐 Voice-Enhanced RFID Door Lock with LCD & DFPlayer Mini
+# 🔐 Selenoid RFID Door Lock with LCD & DFPlayer Mini
 
 Sistem kunci pintu otomatis pintar berbasis **Arduino Uno** yang dilengkapi dengan autentikasi **RFID (RC522)**, notifikasi suara interaktif via **DFPlayer Mini**, layar status **LCD 16x2 I2C**, dan pengunci mekanis **Solenoid Door Lock**.
 ---
