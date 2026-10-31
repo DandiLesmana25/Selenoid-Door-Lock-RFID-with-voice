@@ -16,7 +16,7 @@ Sistem kunci pintu otomatis pintar berbasis **Arduino Uno** yang dilengkapi deng
 
 | Komponen | Jumlah | Keterangan |
 | :--- | :---: | :--- |
-| **Arduino Uno / Nano** | 1 | Mikrokontroler utama |
+| **Arduino Uno R3 / Arduino uno r4 wifi ** | 1 | Mikrokontroler utama |
 | **RFID Reader RC522** | 1 | Pembaca kartu/tag RFID 13.56 MHz |
 | **DFPlayer Mini** | 1 | Modul pemutar audio MP3 |
 | **MicroSD Card** | 1 | Format FAT32 (berisi file audio MP3) |
@@ -54,8 +54,8 @@ Sistem kunci pintu otomatis pintar berbasis **Arduino Uno** yang dilengkapi deng
 | :--- | :--- | :--- |
 | **VCC** | 5V | Sumber daya modul |
 | **GND** | GND | Ground |
-| **RX** | Pin 10 (TX SoftwareSerial) | Pasang resistor 1kΩ seri di jalur ini |
-| **TX** | Pin 11 (RX SoftwareSerial) | Jalur komunikasi data serial |
+| **RX** | Pin 4 (`DF_TX_PIN` SoftwareSerial) | Pasang resistor 1kΩ seri di jalur ini |
+| **TX** | Pin 3 (`DF_RX_PIN` SoftwareSerial) | Jalur komunikasi data serial |
 | **SPK_1 / SPK_2** | Speaker (+) & (-) | Terminal speaker langsung |
 
 ---
@@ -77,7 +77,7 @@ Sistem kunci pintu otomatis pintar berbasis **Arduino Uno** yang dilengkapi deng
 | :--- | :--- |
 | **VCC** | 5V |
 | **GND** | GND |
-| **IN** | Pin 7 |
+| **IN** | Pin 2 (`PIN_RELAY`) |
 | **COM** | +12V DC Power Supply |
 | **NO** | Kabel (+) Solenoid Lock |
 | *GND 12V* | Terhubung ke (-) Solenoid Lock & Common GND |
@@ -114,11 +114,10 @@ Pasang library berikut melalui **Arduino Library Manager** (`Sketch > Include Li
 2. **Siapkan MicroSD:** Salin file MP3 ke dalam folder `mp3` pada MicroSD dan masukkan ke DFPlayer Mini.
 3. **Cari UID Kartu:**
    - Gunakan contoh sketch bawaan library `MFRC522 -> DumpInfo` untuk membaca UID kartu Anda via Serial Monitor.
-   - Ganti isi array `authorizedUID` pada kode di atas dengan UID kartu Anda.
+   - Ganti isi array `kartuTerdaftar` pada `sketch_main.ino` dengan UID kartu Anda.
 4. **Upload Sketch:** Sambungkan Arduino ke PC dan lakukan compile & upload sketch.
 5. **Uji Coba:**
    - Dekatkan kartu yang terdaftar $\rightarrow$ LCD menampilkan *Access Granted*, audio menyala, dan relay membuka kunci.
    - Dekatkan kartu asing $\rightarrow$ LCD menampilkan *Access Denied* dan audio peringatan menyala.
 
 ---
-
