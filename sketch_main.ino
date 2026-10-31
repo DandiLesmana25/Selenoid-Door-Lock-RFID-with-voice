@@ -1,12 +1,14 @@
 /*
- * PROJECT: RFID Smart Door Lock with Voice (DFPlayer Mini)
- * HARDWARE: Arduino Uno, RC522, Relay, Solenoid 12V, DFPlayer Mini + Speaker
+ * PROJECT: RFID Smart Door Lock with Voice (DFPlayer Mini) & LCD 16x2 I2C
+ * HARDWARE: Arduino Uno, RC522, Relay, Solenoid 12V, DFPlayer Mini + Speaker, LCD 16x2 I2C
  */
 
 #include <SPI.h>
 #include <MFRC522.h>
 #include <SoftwareSerial.h>
 #include <DFRobotDFPlayerMini.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
 
 // --- Definisi Pin RFID & Relay ---
 #define RST_PIN   9
@@ -18,10 +20,11 @@
 #define DF_RX_PIN 3  // Hubungkan ke pin TX DFPlayer
 #define DF_TX_PIN 4  // Hubungkan ke pin RX DFPlayer (melalui resistor 1k ohm)
 
-// Buat objek RFID & DFPlayer
+// Buat objek RFID, DFPlayer, & LCD I2C (Alamat umum: 0x27 atau 0x3F)
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 SoftwareSerial mySerial(DF_RX_PIN, DF_TX_PIN);
 DFRobotDFPlayerMini myDFPlayer;
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 // --- SESUAIKAN UID KARTU KITA ---
 byte kartuTerdaftar[] = {0x93, 0x4F, 0xE7, 0x00}; // Kartu RFID Hansel
@@ -29,6 +32,15 @@ byte kartuTerdaftar[] = {0x93, 0x4F, 0xE7, 0x00}; // Kartu RFID Hansel
 void setup() {
   Serial.begin(9600);
   mySerial.begin(9600);
+
+  // Inisialisasi LCD 16x2 I2C
+  lcd.init();
+  lcd.backlight();
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print(F("Memulai Sistem.."));
+  lcd.setCursor(0, 1);
+  lcd.print(F("Smart Door Lock"));
 
   SPI.begin();        // Inisialisasi bus SPI
   mfrc522.PCD_Init(); // Inisialisasi modul RFID RC522
@@ -44,6 +56,12 @@ void setup() {
 
   if (!myDFPlayer.begin(mySerial)) {
     Serial.println(F("DFPlayer Mini gagal diinisialisasi atau MicroSD tidak terbaca!"));
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print(F("DFPlayer Error!"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("Cek MicroSD/Kabel"));
+    delay(2000);
     // Sistem tetap bisa lanjut meskipun audio error, atau gunakan while(true); jika ingin berhenti
   } else {
     Serial.println(F("DFPlayer siap bekerja."));
@@ -53,6 +71,8 @@ void setup() {
   Serial.println(F("-----------------------------------"));
   Serial.println(F("Sistem Smart Door Lock Aktif!"));
   Serial.println(F("Silakan tempelkan kartu Anda..."));
+
+  tampilkanStandby();
 }
 
 void loop() {
@@ -103,9 +123,24 @@ void loop() {
 }
 
 // ==========================================
-// FUNGSI BUKA PINTU & TOLAK AKSES (DENGAN SUARA MP3)
+// FUNGSI TAMPILAN LCD & KONTROL PINTU
 // ==========================================
+void tampilkanStandby() {
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print(F(" SMART DOOR LOCK"));
+  lcd.setCursor(0, 1);
+  lcd.print(F("Tempelkan Kartu"));
+}
+
 void bukaPintu() {
+  // Tampilkan status pada LCD
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print(F("AKSES DITERIMA!"));
+  lcd.setCursor(0, 1);
+  lcd.print(F("Pintu Terbuka..."));
+
   // Putar suara Akses Diterima (file: mp3/0001.mp3)
   myDFPlayer.play(1);
 
@@ -118,9 +153,19 @@ void bukaPintu() {
   // Kunci kembali pintu (Relay OFF)
   digitalWrite(PIN_RELAY, HIGH);
   Serial.println(F("Pintu Kembali Terkunci."));
+
+  // Kembalikan tampilan LCD ke mode standby
+  tampilkanStandby();
 }
 
 void tolakAkses() {
+  // Tampilkan status pada LCD
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print(F(" AKSES DITOLAK! "));
+  lcd.setCursor(0, 1);
+  lcd.print(F("Kartu Asing/Salah"));
+
   // Putar suara Akses Ditolak (file: mp3/0002.mp3)
   myDFPlayer.play(2);
   
@@ -129,4 +174,7 @@ void tolakAkses() {
 
   // Beri jeda 2.5 detik agar suara selesai diputar sebelum sensor membaca ulang
   delay(2500);
+
+  // Kembalikan tampilan LCD ke mode standby
+  tampilkanStandby();
 }
