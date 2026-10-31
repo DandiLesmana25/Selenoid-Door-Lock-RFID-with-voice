@@ -80,7 +80,7 @@ Sistem kunci pintu otomatis pintar berbasis **Arduino Uno** yang dilengkapi deng
 | **VCC** | 5V |
 | **GND** | GND |
 | **IN** | Pin 2 (`PIN_RELAY`) |
-| **COM** | baterai / Power Supply |
+| **COM** | + baterai / Power Supply |
 | **NO** | Kabel (+) Solenoid Lock |
 | *GND baterai/power suplay* | Terhubung ke (-) Solenoid Lock & Common GND |
 
