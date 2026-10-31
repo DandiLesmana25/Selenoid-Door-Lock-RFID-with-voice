@@ -32,6 +32,8 @@ Sistem kunci pintu otomatis pintar berbasis **Arduino Uno** yang dilengkapi deng
 
 ## 📐 Skema Rangkaian & Pinout
 
+![Skema Wiring Arduino Uno RFID Door Lock](wiring_diagram.jpg)
+
 ### 1. RFID RC522 $\rightarrow$ Arduino Uno
 > ⚠️ **Catatan:** Pin `VCC` RFID RC522 wajib disambungkan ke **3.3V** (bukan 5V).
 
