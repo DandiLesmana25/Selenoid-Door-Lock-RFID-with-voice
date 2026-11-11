@@ -34,6 +34,12 @@ Sistem kunci pintu otomatis pintar berbasis **Arduino Uno** yang dilengkapi deng
 
 ![Skema Wiring Arduino Uno RFID Door Lock](wiring_diagram.jpg)
 
+### 📌 Referensi Pinout Arduino Uno
+
+![Pinout Arduino Uno](assets/arduino-pinout.png)
+
+---
+
 ### 1. RFID RC522 $\rightarrow$ Arduino Uno
 > ⚠️ **Catatan:** Pin `VCC` RFID RC522 wajib disambungkan ke **3.3V** (bukan 5V).
 
@@ -48,6 +54,10 @@ Sistem kunci pintu otomatis pintar berbasis **Arduino Uno** yang dilengkapi deng
 | **RST** | Pin 9 |
 | **3.3V** | 3.3V |
 
+<br>
+
+![Pinout RFID RC522](assets/RC522-RFID-CARD-READERS-Pinout.webp)
+
 ---
 
 ### 2. DFPlayer Mini $\rightarrow$ Arduino Uno
@@ -60,6 +70,10 @@ Sistem kunci pintu otomatis pintar berbasis **Arduino Uno** yang dilengkapi deng
 | **TX** | Pin 3 (`DF_RX_PIN` SoftwareSerial) | Jalur komunikasi data serial |
 | **SPK_1 / SPK_2** | Speaker (+) & (-) | Terminal speaker langsung |
 
+<br>
+
+![Pinout DFPlayer Mini](assets/dfplayer-pinout.webp)
+
 ---
 
 ### 3. LCD 16x2 I2C $\rightarrow$ Arduino Uno
@@ -70,6 +84,10 @@ Sistem kunci pintu otomatis pintar berbasis **Arduino Uno** yang dilengkapi deng
 | **GND** | GND |
 | **SDA** | A4 (atau pin SDA bawaan) |
 | **SCL** | A5 (atau pin SCL bawaan) |
+
+<br>
+
+![Pinout LCD 16x2 I2C](assets/LCD-i2c-pinout.png)
 
 ---
 
@@ -83,6 +101,10 @@ Sistem kunci pintu otomatis pintar berbasis **Arduino Uno** yang dilengkapi deng
 | **COM** | +12V DC Power Supply |
 | **NO** | Kabel (+) Solenoid Lock |
 | *GND 12V* | Terhubung ke (-) Solenoid Lock & Common GND |
+
+<br>
+
+![Pinout Relay Module](assets/Single-Channel-Relay-Module-Pinout.jpg)
 
 ---
 
