@@ -1,11 +1,20 @@
+
+
 # 🔐 Selenoid RFID Door Lock with LCD & DFPlayer Mini
 
 Sistem kunci pintu otomatis pintar berbasis **Arduino Uno** yang dilengkapi dengan autentikasi **RFID (RC522)**, notifikasi suara interaktif via **DFPlayer Mini**, layar status **LCD 16x2 I2C**, dan pengunci mekanis **Solenoid Door Lock**.
 ---
 
+## Demo video
+https://github.com/user-attachments/assets/12b31d51-a502-41e1-8795-27fbac0cbdab
+
 ## 📌 Fitur Utama
 
-- **Autentikasi Kartu RFID:** Akses cepat menggunakan kartu/tag RFID (13.56 MHz).
+- **Autentikasi Kartu RFID:** Akses cepat menggunakan kartu/tag
+
+
+
+ RFID (13.56 MHz).
 - **Audio Feedback Interaktif:** Memberikan respons suara MP3 (misal: *"Access Granted"*, *"Access Denied"*, *"Welcome"*).
 - **Layar Status Visual:** Menampilkan instruksi tap dan status akses secara real-time pada LCD 16x2 (I2C).
 - **Kontrol Solenoid Door Lock:** Membuka kunci pintu secara otomatis saat akses valid dan menguncinya kembali setelah jeda waktu tertentu.
@@ -20,6 +29,10 @@ Sistem kunci pintu otomatis pintar berbasis **Arduino Uno** yang dilengkapi deng
 | **RFID Reader RC522** | 1 | Pembaca kartu/tag RFID 13.56 MHz |
 | **DFPlayer Mini** | 1 | Modul pemutar audio MP3 |
 | **MicroSD Card** | 1 | Format FAT32 (berisi file audio MP3) |
+
+
+
+
 | **Speaker Mini (8Ω 0.5W - 3W)** | 1 | Output suara |
 | **LCD 16x2 dengan Modul I2C** | 1 | Display status sistem |
 | **Solenoid Door Lock (12V)** | 1 | Mekanisme pengunci pintu |
